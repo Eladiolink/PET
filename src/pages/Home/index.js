@@ -1,15 +1,73 @@
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList } from 'react-native'
-import React from 'react'
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import Categories from '../../components/categories';
 import Itens from '../../components/Itens';
+import PopularItens from '../../components/PopularItens'
+const products = [
+    {
+        Name: "Cactu 1",
+        Price: 39.90,
+        Category: "Cactus",
+        Region: "Interno"
+    },
+    {
+        Name: "Cactu 2",
+        Price: 29.90,
+        Category: "Cactus",
+        Region: "Interno"
+    },
+    {
+        Name: "Flores 1",
+        Price: 19.90,
+        Category: "Flores",
+        Region: "Interno"
+    },
+    {
+        Name: "Flores 2",
+        Price: 39.90,
+        Category: "Flores",
+        Region: "Interno"
+    },
+    {
+        Name: "Samambaia 1",
+        Price: 39.90,
+        Category: "Samambaia",
+        Region: "Externo"
+    },
+]
 
 export default function Home() {
+
+    const [categorySelected, setCategorySelected] = useState("Todes")
+    const [productsFiltered, setProductsFiltered] = useState([])
+    const categories = ["Todes", "Cactus", "Flores", "Samambaia"]
+
+    const scrollProductsRef = useRef();
+
+    const resetScroll = () => {
+        scrollProductsRef.current?.scrollTo({
+            x: 0,
+            y: 0,
+            animated: true,
+        });
+    }
+
+    useEffect(() => {
+        if (categorySelected === "Todes") {
+            setProductsFiltered(products)
+        } else {
+            setProductsFiltered(products.filter(item => item.Category === categorySelected))
+        }
+
+        resetScroll()
+    }, [categorySelected])
+
     return (
         <View style={styles.Container}>
             <View style={styles.Top}>
-                <Text style={styles.TextTop}>Plantas para a sua Casa Verde</Text>
+                <Text style={styles.TextTop}>Mudinhas do Kael</Text>
                 <Image
                     source={require('../../assets/user.png')}
                     style={styles.image}
@@ -31,32 +89,35 @@ export default function Home() {
                 </TouchableOpacity>
             </View>
 
-            <ScrollView style={styles.Categories} horizontal={true}>
-                <View style={{flexDirection:'row',height:0}}>
-                    <Categories category='Todes' checked={true} />
-                    <Categories category='Cactus' checked={false} />
-                    <Categories category='Flores' checked={false} />
-                </View>
+            <View style={{ height: 100, marginTop: 20 }}>
+                <ScrollView style={styles.Categories} showsHorizontalScrollIndicator={false} horizontal>
+                    {categories.map((item, index) => <Categories select={() => setCategorySelected(item)} category={item} checked={categorySelected === item} key={index} />)}
+                </ScrollView>
+            </View>
 
-            </ScrollView>
+            <View style={{ height: 210, width: '100%' }}>
+                <ScrollView ref={scrollProductsRef} style={styles.Products} showsHorizontalScrollIndicator={false} horizontal scrollsToTop>
+                    {productsFiltered.map((item, index) => <Itens data={item} key={index} />)}
+                </ScrollView>
+            </View>
 
-            <ScrollView horizontal={true}>
-                <Itens />
-                <Itens />
-            </ScrollView>
+            <Text style={{ paddingLeft: 20, marginVertical:20, fontSize: 24, fontWeight: 'bold' }}>Popular</Text>
+
+            <View style={{ height: 80 }}>
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+                    <PopularItens/>
+                    <PopularItens/>
+                    <PopularItens/>
+                    <PopularItens/>
+                </ScrollView>
+            </View>
         </View>
     )
 
 }
 
 const styles = StyleSheet.create({
-    Categories: {
-        marginBottom: 0,
-        padding: 0,
-        paddingVertical: 20,
-        height: 0,
-        borderColor: '#000'
-    },
+
     Container: {
         marginTop: 50,
         flex: 1,
@@ -112,5 +173,12 @@ const styles = StyleSheet.create({
     SearchIcon: {
         paddingRight: 10,
         paddingLeft: 5
+    },
+    Categories: {
+        width: "100%"
+    },
+    Products: {
+        width: "100%",
+        maxWidth: '100%'
     }
 })
