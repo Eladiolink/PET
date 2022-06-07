@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Detail from './pages/Detail';
 import Favorito from './pages/Favorito';
 import Perfil from './pages/Perfil';
+import Carrinho from './pages/Carrinho';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,7 +68,7 @@ function Tabs() {
 
             <Tab.Screen
                 name="Carrinho"
-                component={Detail}
+                component={Carrinho}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ size, color }) => (

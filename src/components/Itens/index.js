@@ -2,12 +2,15 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Itens({ data, navigation }) {
+export default function Itens({ data, navigation, img }) {
+   
+    let local = `../../assets/flores1.png`
+
     return (
         <View style={styles.Container}>
             <View style={styles.ContainerImage}>
                 <Image
-                    source={require('../../assets/cactus1.png')}
+                    source={data.Image}
                     style={styles.Image}
                 />
             </View>
@@ -32,7 +35,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         width: 140,
         height: 180,
-        margin: 10
+        margin: 10,
+        shadowColor: '#470000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.2,
+        elevation: 1
     },
     ContainerImage:{
         backgroundColor: "#000",

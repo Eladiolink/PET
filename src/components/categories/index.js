@@ -1,11 +1,11 @@
-import { Text, View, StyleSheet,TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 
 export default function categories(props) {
   let checked = props.checked
   return (
 
-    <TouchableOpacity onPress={props.select}>
+    <TouchableOpacity style={styles.Container} onPress={props.select}>
       <View style={checked ? styles.checked : styles.normal}>
         <Text style={checked ? styles.text : styles.textNormal}>{props.category}</Text>
       </View>
@@ -16,6 +16,12 @@ export default function categories(props) {
 }
 
 const styles = StyleSheet.create({
+  Container: {
+    shadowColor: '#470000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    elevation: 1
+  },
   checked: {
     height: 50,
     width: 120,

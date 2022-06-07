@@ -6,44 +6,75 @@ import Categories from '../../components/categories';
 import Itens from '../../components/Itens';
 import PopularItens from '../../components/PopularItens'
 
+const img = ['../../assets/cactus1.png']
+
 const products = [
     {
         Name: "Cactu 1",
-        Price: 39.90,
+        Price: "39.90",
         Category: "Cactus",
+        Image: require('../../assets/cactus1.png'),
         Region: "Interno"
     },
     {
         Name: "Cactu 2",
-        Price: 29.90,
+        Price: "29.90",
         Category: "Cactus",
+        Image: require('../../assets/cactus2.png'),
         Region: "Interno"
     },
     {
         Name: "Flores 1",
-        Price: 19.90,
+        Price: "19.90",
         Category: "Flores",
+        Image: require('../../assets/flores1.png'),
         Region: "Interno"
     },
     {
         Name: "Flores 2",
-        Price: 39.90,
+        Price: "39.90",
         Category: "Flores",
+        Image: require('../../assets/flores1.png'),
         Region: "Interno"
     },
     {
         Name: "Samambaia 1",
-        Price: 39.90,
+        Price: "39.90",
         Category: "Samambaia",
+        Image: require('../../assets/samambaia.png'),
+        Region: "Externo"
+    },
+]
+
+const popular = [
+    {
+        Name: "Cactu 1",
+        Price: "39.90",
+        Category: "Cactus",
+        Image: require('../../assets/cactus1.png'),
+        Region: "Interno"
+    },
+    {
+        Name: "Flores 1",
+        Price: "19.90",
+        Category: "Flores",
+        Image: require('../../assets/flores1.png'),
+        Region: "Interno"
+    },
+    {
+        Name: "Samambaia 1",
+        Price: "39.90",
+        Category: "Samambaia",
+        Image: require('../../assets/samambaia.png'),
         Region: "Externo"
     },
 ]
 
 export default function Home({ navigation }) {
 
-    const [categorySelected, setCategorySelected] = useState("Todes")
+    const [categorySelected, setCategorySelected] = useState("Todas")
     const [productsFiltered, setProductsFiltered] = useState([])
-    const categories = ["Todes", "Cactus", "Flores", "Samambaia"]
+    const categories = ["Todas", "Cactus", "Flores", "Samambaia"]
 
     const scrollProductsRef = useRef();
 
@@ -56,7 +87,7 @@ export default function Home({ navigation }) {
     }
 
     useEffect(() => {
-        if (categorySelected === "Todes") {
+        if (categorySelected === "Todas") {
             setProductsFiltered(products)
         } else {
             setProductsFiltered(products.filter(item => item.Category === categorySelected))
@@ -66,9 +97,11 @@ export default function Home({ navigation }) {
     }, [categorySelected])
 
     return (
+        
         <View style={styles.Container}>
+            {/* Top */}
             <View style={styles.Top}>
-                <Text style={styles.TextTop}>Mudinhas do Kael</Text>
+                <Text style={styles.TextTop}>Plantas para a sua Casa Verde</Text>
                 <Image
                     source={require('../../assets/user.png')}
                     style={styles.image}
@@ -89,16 +122,28 @@ export default function Home({ navigation }) {
                     />
                 </TouchableOpacity>
             </View>
-
+        
+         {/* Categories */}
             <View style={{ height: 100, marginTop: 20 }}>
                 <ScrollView style={styles.Categories} showsHorizontalScrollIndicator={false} horizontal>
-                    {categories.map((item, index) => <Categories select={() => setCategorySelected(item)} category={item} checked={categorySelected === item} key={index} />)}
+                    {categories.map((item, index) =>
+                        <Categories
+                            select={() => setCategorySelected(item)}
+                            category={item}
+                            checked={categorySelected === item} key={index}
+                        />)}
                 </ScrollView>
             </View>
-
+           {/* Popular */}
             <View style={{ height: 210, width: '100%' }}>
                 <ScrollView ref={scrollProductsRef} style={styles.Products} showsHorizontalScrollIndicator={false} horizontal scrollsToTop>
-                    {productsFiltered.map((item, index) => <TouchableOpacity onPress={() => navigation.navigate('Detail')} key={index}><Itens data={item}  /></TouchableOpacity>)}
+                    {productsFiltered.map((item, index) =>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('Detail', { item: item })}
+                            key={index}
+                        >
+                            <Itens data={item} img={item.Image} />
+                        </TouchableOpacity>)}
                 </ScrollView>
             </View>
 
@@ -106,10 +151,15 @@ export default function Home({ navigation }) {
 
             <View style={{ height: 80 }}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-                <TouchableOpacity onPress={() => navigation.navigate('Detail')}><PopularItens /></TouchableOpacity>
+                    {popular.map((item, index) =>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('Detail', { item: item })}
+                            key={index}>
+                            <PopularItens data={item}/>
+                        </TouchableOpacity>)}
                 </ScrollView>
             </View>
-            
+
         </View>
     )
 
@@ -150,7 +200,7 @@ const styles = StyleSheet.create({
     image: {
         width: 60,
         height: 60,
-        
+
     },
     Filter: {
         backgroundColor: '#181818',
@@ -169,6 +219,10 @@ const styles = StyleSheet.create({
         height: 60,
         width: '60%',
         borderRadius: 20,
+        shadowColor: '#470000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.6,
+        elevation: 1
     },
     SearchIcon: {
         paddingRight: 10,

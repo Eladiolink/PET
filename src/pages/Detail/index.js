@@ -2,30 +2,32 @@ import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'rea
 import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 
-export default function Detail() {
+export default function Detail({route}) {
+  const Item = route.params.item;
+  console.log(Item)
   return (
     <View style={{ flex: 1, backgroundColor: '#F2F6FF' }}>
       <ScrollView>
         <View style={styles.Screen}>
 
           <View style={styles.TopInfo}>
-            <Text style={styles.TitleInfo}>Titulo</Text>
+            <Text style={styles.TitleInfo}>{Item.Name}</Text>
             <MaterialIcons name="star" size={30} color="yellow" />
           </View>
 
           <View style={styles.Details}>
             <View>
               <Text style={styles.CategoryTitle}>Categoria</Text>
-              <Text style={styles.CategoryText}>Interna</Text>
+              <Text style={styles.CategoryText}>{Item.Region}</Text>
 
               <Text style={styles.CategoryTitle}>Tipo</Text>
-              <Text style={styles.CategoryText}>Pequeno</Text>
+              <Text style={styles.CategoryText}>{Item.Category}</Text>
 
               <Text style={styles.CategoryTitle}>Planta</Text>
-              <Text style={styles.CategoryText}>Cactus</Text>
+              <Text style={styles.CategoryText}>{Item.Category}</Text>
             </View>
             <Image
-              source={require('../../assets/cactus1.png')}
+              source={Item.Image}
               style={styles.Image}
             />
           </View>
@@ -66,7 +68,7 @@ export default function Detail() {
       <View style={styles.footer}>
         <View>
           <Text style={styles.buy}>Preço</Text>
-          <Text style={styles.price}>R$39,90</Text>
+          <Text style={styles.price}>R${Item.Price}</Text>
         </View>
 
         <TouchableOpacity>
