@@ -1,21 +1,24 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function Itens({data}) {
+export default function Itens({ data, navigation }) {
     return (
         <View style={styles.Container}>
-            <Image
-                source={require('../../assets/cactus1.jpg')}
-                style={styles.Image}
-            />
-            <View style={styles.info}>
-                <Text style={{color:'#D9D9D9'}}>{data.Region}</Text>
-                <Text style={{color:'#FFF'}}>R${data.Price}</Text>
+            <View style={styles.ContainerImage}>
+                <Image
+                    source={require('../../assets/cactus1.png')}
+                    style={styles.Image}
+                />
             </View>
 
             <View style={styles.info}>
-                <Text style={{color:'#FFF',fontWeight:'bold', fontSize:16}}>{data.Name}</Text>
+                <Text style={{ color: '#D9D9D9' }}>{data.Region}</Text>
+                <Text style={{ color: '#000' }}>R${data.Price}</Text>
+            </View>
+
+            <View style={styles.info}>
+                <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 16 }}>{data.Name}</Text>
                 <FontAwesome name="star" size={20} color="yellow" />
             </View>
         </View>
@@ -23,20 +26,29 @@ export default function Itens({data}) {
 }
 
 const styles = StyleSheet.create({
-    Container:{
+    Container: {
         borderRadius: 20,
-        padding:5,
-        backgroundColor:'#000',
-        height:200,
-        margin:10
+        padding: 10,
+        backgroundColor: '#FFF',
+        width: 140,
+        height: 180,
+        margin: 10
     },
-    Image:{
-        width:150,
-        height:150,
-        borderRadius: 20
+    ContainerImage:{
+        backgroundColor: "#000",
+        borderRadius: 20,
+        width: 120,
+        height: 120,
+        justifyContent:'center',
+        alignItems:'center'
     },
-    info:{
-        flexDirection:'row',
-        justifyContent:'space-between'
+    Image: {
+        width: 80,
+        height: 100,
+        
+    },
+    info: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 })

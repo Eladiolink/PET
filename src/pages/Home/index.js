@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import Categories from '../../components/categories';
 import Itens from '../../components/Itens';
 import PopularItens from '../../components/PopularItens'
+
 const products = [
     {
         Name: "Cactu 1",
@@ -38,7 +39,7 @@ const products = [
     },
 ]
 
-export default function Home() {
+export default function Home({ navigation }) {
 
     const [categorySelected, setCategorySelected] = useState("Todes")
     const [productsFiltered, setProductsFiltered] = useState([])
@@ -97,20 +98,18 @@ export default function Home() {
 
             <View style={{ height: 210, width: '100%' }}>
                 <ScrollView ref={scrollProductsRef} style={styles.Products} showsHorizontalScrollIndicator={false} horizontal scrollsToTop>
-                    {productsFiltered.map((item, index) => <Itens data={item} key={index} />)}
+                    {productsFiltered.map((item, index) => <TouchableOpacity onPress={() => navigation.navigate('Detail')} key={index}><Itens data={item}  /></TouchableOpacity>)}
                 </ScrollView>
             </View>
 
-            <Text style={{ paddingLeft: 20, marginVertical:20, fontSize: 24, fontWeight: 'bold' }}>Popular</Text>
+            <Text style={{ paddingLeft: 20, marginVertical: 20, fontSize: 24, fontWeight: 'bold' }}>Popular</Text>
 
             <View style={{ height: 80 }}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-                    <PopularItens/>
-                    <PopularItens/>
-                    <PopularItens/>
-                    <PopularItens/>
+                <TouchableOpacity onPress={() => navigation.navigate('Detail')}><PopularItens /></TouchableOpacity>
                 </ScrollView>
             </View>
+            
         </View>
     )
 
@@ -151,6 +150,7 @@ const styles = StyleSheet.create({
     image: {
         width: 60,
         height: 60,
+        
     },
     Filter: {
         backgroundColor: '#181818',

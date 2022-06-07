@@ -6,16 +6,18 @@ export default function Itens({ data }) {
     return (
         <View style={styles.Container}>
             <View style={{height:70, justifyContent:'center'}}>
-            <Image
-                source={require('../../assets/cactus1.jpg')}
-                style={styles.Image}
-            />
+            <View style={styles.ContainerImage}>
+                <Image
+                    source={require('../../assets/cactus1.png')}
+                    style={styles.Image}
+                />
+            </View>
             </View>
             
             <View style={styles.Info}>
-                <Text style={{ color: '#D9D9D9' }}>Externa</Text>
-                <Text style={{ color: '#D9D9D9', fontWeight: 'bold', }}>Flores1</Text>
-                <Text style={{ color: '#FFF' }}>R$23,90</Text>
+                <Text style={{ color: '#848484' }}>Externa</Text>
+                <Text style={{ color: '#000', fontWeight: 'bold', }}>Flores1</Text>
+                <Text style={{ color: '#000' }}>R$23,90</Text>
 
             </View>
 
@@ -27,20 +29,25 @@ const styles = StyleSheet.create({
     Container: {
         borderRadius: 15,
         marginHorizontal:10,
-        backgroundColor: '#000',
-        height: 70,
+        backgroundColor: '#FFF',
+        height: 80,
         width: 145,
         flexDirection: 'row',
         alignContent: 'flex-end',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
-    Image: {
-        width: 60,
-        height: 60,
+    ContainerImage:{
+        backgroundColor: '#000',
         borderRadius: 15,
         marginRight:10,
+        marginTop:5,
+        width: 70,
+        height: 70,
+        justifyContent:'center',
+        alignItems:'center'
     },
-    Info:{
-        
+    Image: {
+        width: 50,
+        height: 60,
     }
 })
