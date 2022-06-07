@@ -37,20 +37,14 @@ export default function Home({ navigation }) {
             </View>
 
             <ScrollView>
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
-               <Favorites />
+            {favorites.map((item, index) =>
+                        <TouchableOpacity
+                            style={{elevation:20}}
+                            onPress={() => navigation.navigate('Detail', { item: item })}
+                            key={index}
+                        >
+                            <Favorites data={item} img={item.Image} />
+                        </TouchableOpacity>)}
             </ScrollView>
         </View>
     )

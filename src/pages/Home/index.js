@@ -139,6 +139,7 @@ export default function Home({ navigation }) {
                 <ScrollView ref={scrollProductsRef} style={styles.Products} showsHorizontalScrollIndicator={false} horizontal scrollsToTop>
                     {productsFiltered.map((item, index) =>
                         <TouchableOpacity
+                            style={{elevation:20}}
                             onPress={() => navigation.navigate('Detail', { item: item })}
                             key={index}
                         >
@@ -146,7 +147,7 @@ export default function Home({ navigation }) {
                         </TouchableOpacity>)}
                 </ScrollView>
             </View>
-
+          
             <Text style={{ paddingLeft: 20, marginVertical: 20, fontSize: 24, fontWeight: 'bold' }}>Popular</Text>
 
             <View style={{ height: 80 }}>
@@ -234,5 +235,11 @@ const styles = StyleSheet.create({
     Products: {
         width: "100%",
         maxWidth: '100%'
+    },
+    Shadow:{
+        shadowColor: '#470000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.2,
+        elevation: 1
     }
 })

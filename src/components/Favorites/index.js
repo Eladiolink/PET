@@ -5,26 +5,25 @@ import { FontAwesome } from '@expo/vector-icons';
 export default function Favorites({ data, navigation, img }) {
 
     let local = require(`../../assets/samambaia.png`)
-
     return (
         <View >
             <TouchableOpacity style={styles.Container}>
                 <View style={styles.ContainerImage}>
                     <Image
-                        source={local}
+                        source={data.Image}
                         style={styles.Image}
                     />
                 </View>
 
                 <View style={styles.ContainerInfo}>
                     <View style={styles.info}>
-                        <Text style={{ color: '#848484' }}>interna</Text>
-                        <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 24 }}>Flores1</Text>
+                        <Text style={{ color: '#848484' }}>{data.Category}</Text>
+                        <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 20 }}>{data.Name}</Text>
                     </View>
 
                     <View style={styles.price}>
                         <Text style={{ color: '#848484' }}>Preço</Text>
-                        <Text style={{ color: '#000', fontSize: 20, fontWeight: 'bold' }}>R$23</Text>
+                        <Text style={{ color: '#000', fontSize: 18, fontWeight: 'bold' }}>R${data.Price}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

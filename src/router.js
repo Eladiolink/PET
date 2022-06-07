@@ -28,6 +28,7 @@ export default function Routes() {
                         color:"#FFF"
                     }
                 }}/>
+                 <Stack.Screen name="Favorito" component={Favorito}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
